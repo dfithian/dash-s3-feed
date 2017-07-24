@@ -12,11 +12,11 @@ A proxy server over S3 that serves [Dash](http://kapeli.com/) docsets.
 
 ## Authentication
 
-This uses basic auth. Use an SSL certificate.
+This uses basic auth. Use an SSL certificate (not implemented yet).
 
 ## Getting files
 
-For both manifests and docsets, GET to /file/<bucket>/<path>.
+For both manifests and docsets, `GET` to `/file/<bucket>/<path>`.
 
 ### Example
 
@@ -26,8 +26,8 @@ curl http://user:pass@localhost:8080/file/my-bucket/my%2furlescaped%2fpath%2fman
 
 ## Pushing docsets
 
-Multipart upload with `version` (text) and `file` (.tar.gz file) inputs. POST to
-/file/<bucket>/<manifest-path>.
+Multipart upload with `version` (text) and `file` (.tar.gz file) inputs. `POST` to
+`/file/<bucket>/<manifest-path>`.
 
 ### Example
 
