@@ -1,4 +1,4 @@
-name: dash-feed
+name: dash-s3-feed
 version: '1.0'
 maintainer: Dan Fithian
 license: BSD3
@@ -84,8 +84,8 @@ library:
   source-dirs: src
 
 executables:
-  dash-feed:
+  dash-s3-feed:
     main: main.hs
     source-dirs: app
     dependencies:
-      - dash-feed
+      - dash-s3-feed
