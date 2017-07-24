@@ -35,3 +35,8 @@ Multipart upload with `version` (text) and `file` (.tar.gz file) inputs. `POST` 
 curl http://user:pass@localhost:8080/file/my-bucket/my%2furlescaped%2fpath%2fmanifest.xml \
   -F "version=1.0" -F "file=@docset.tar.gz"
 ```
+
+## Setting up a Dash feed
+
+Go to Preferences > Downloads > `+`. Enter the manifest url
+(`https://user:pass@server:port/file/bucket/path%2fmanifest.xml`). Click "Download".
