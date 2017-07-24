@@ -9,13 +9,14 @@ import Database.PostgreSQL.Simple (close, connectPostgreSQL)
 import Network.AWS (Credentials(Discover), newEnv)
 import Network.Wai.Handler.Warp (run)
 import Servant ((:<|>)((:<|>)))
-import Servant.Server ((:~>)(NT), Handler, enter, serve)
+import Servant.Server ((:~>)(NT), Handler, enter, serveWithContext)
 
 import Api (api)
 import File (getFile, postFile)
 import Foundation (App(App), MonadStack, _appConnectionPool, _appSettings)
 import Logging (LogFunction, withLogger)
 import Settings (Settings(Settings), _settingsDatabase, _settingsPoolSize, _settingsPort)
+import User (basicAuthContext)
 
 stackToHandler' :: r -> LogFunction -> MonadStack r a -> Handler a
 stackToHandler' site logFunc action =
@@ -41,5 +42,6 @@ startApp = do
       logFunc <- askLoggerIO
       let port = _settingsPort _appSettings
       $logInfo $ "Starting server on " <> tshow port
-      liftIO . run port . serve api . enter (stackToHandler app logFunc) $
-        getFile :<|> postFile
+      liftIO . run port . serveWithContext api (basicAuthContext app)
+        . enter (stackToHandler app logFunc)
+        $ \ _ -> getFile :<|> postFile

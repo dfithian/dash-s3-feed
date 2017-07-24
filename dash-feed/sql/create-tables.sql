@@ -6,3 +6,10 @@ create table files (
 );
 
 create index idx_files_created on files(created);
+
+create table users (
+  name bytea not null,
+  password bytea not null
+);
+
+create unique index idx_users_unique_name on users(name);
