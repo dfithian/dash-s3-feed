@@ -1,0 +1,7 @@
+{
+    "database": "host=localhost port=5432 user=root dbname=postgres",
+    "pool-size": 10,
+    "port": 8080,
+    "callback-host": "localhost",
+    "callback-scheme": "http"
+}

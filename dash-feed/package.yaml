@@ -1,0 +1,91 @@
+name: dash-feed
+version: '1.0'
+maintainer: Dan Fithian
+license: BSD3
+
+default-extensions:
+  - Arrows
+  - ConstraintKinds
+  - DataKinds
+  - DeriveDataTypeable
+  - DeriveGeneric
+  - EmptyDataDecls
+  - FlexibleContexts
+  - FlexibleInstances
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - LambdaCase
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - NoImplicitPrelude
+  - NoMonomorphismRestriction
+  - OverloadedStrings
+  - PackageImports
+  - PatternSynonyms
+  - PolyKinds
+  - QuasiQuotes
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TemplateHaskell
+  - TupleSections
+  - TypeFamilies
+  - TypeOperators
+  - ViewPatterns
+
+ghc-options:
+  - -Wall
+  - -Werror
+  - -fwarn-tabs
+  - -threaded
+  - -O2
+  - -rtsopts
+  - -with-rtsopts=-N
+  - -with-rtsopts=-T
+
+dependencies:
+  - aeson
+  - amazonka
+  - amazonka-core
+  - amazonka-s3
+  - base
+  - bytestring
+  - classy-prelude
+  - composite-aeson
+  - composite-base
+  - composite-opaleye
+  - conduit
+  - conduit-extra
+  - data-default
+  - fast-logger
+  - http-api-data
+  - http-types
+  - lens
+  - monad-control
+  - monad-logger
+  - mtl
+  - opaleye
+  - postgresql-simple
+  - product-profunctors
+  - resource-pool
+  - resourcet
+  - servant
+  - servant-multipart
+  - servant-server
+  - text
+  - uuid
+  - wai
+  - warp
+  - xml-conduit
+  - xml-conduit-writer
+
+library:
+  source-dirs: src
+
+executables:
+  dash-feed:
+    main: main.hs
+    source-dirs: app
+    dependencies:
+      - dash-feed
