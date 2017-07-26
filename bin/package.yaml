@@ -1,4 +1,4 @@
-name: dash-s3-feed
+name: bin
 version: '1.0'
 maintainer: Dan Fithian
 license: BSD3
@@ -44,50 +44,16 @@ ghc-options:
   - -with-rtsopts=-N
   - -with-rtsopts=-T
 
-dependencies:
-  - aeson
-  - amazonka
-  - amazonka-core
-  - amazonka-s3
-  - base
-  - bytestring
-  - classy-prelude
-  - composite-aeson
-  - composite-base
-  - composite-opaleye
-  - conduit
-  - conduit-extra
-  - cryptonite
-  - data-default
-  - fast-logger
-  - http-api-data
-  - http-types
-  - lens
-  - monad-control
-  - monad-logger
-  - mtl
-  - opaleye
-  - postgresql-simple
-  - product-profunctors
-  - resource-pool
-  - resourcet
-  - servant
-  - servant-multipart
-  - servant-server
-  - text
-  - uuid
-  - vinyl
-  - wai
-  - warp
-  - xml-conduit
-  - xml-conduit-writer
-
-library:
-  source-dirs: src
-
 executables:
-  dash-s3-feed:
-    main: main.hs
-    source-dirs: app
+  create-user:
+    main: create-user.hs
+    source-dirs: .
     dependencies:
+      - bytestring
+      - classy-prelude
+      - composite-base
+      - cryptonite
       - dash-s3-feed
+      - opaleye
+      - optparse-applicative
+      - postgresql-simple
