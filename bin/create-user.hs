@@ -29,9 +29,8 @@ main = do
   Opts {..} <- parseArgs
   bracket (connectPostgreSQL optsPostgresConfig) close $ \ conn -> do
     users <- runQuery conn . selectUser $ Val optsUsername
-    let _ = users :: [Record User]
     case headMay users of
-      Just _ -> putStrLn "User already exists"
+      Just (_ :: Record User) -> putStrLn "User already exists"
       Nothing -> do
         hashedPassword <- hashPassword 4 optsPassword
         void . runInsertMany conn userTable . singleton

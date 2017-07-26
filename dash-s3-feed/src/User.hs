@@ -24,7 +24,7 @@ authCheck app = BasicAuthCheck $ \ (BasicAuthData name password) -> do
   users <- runReaderT (runDb . flip runQuery $ selectUser (Val name)) app
   case headMay users of
     Nothing -> pure NoSuchUser
-    Just user -> do
+    Just (user :: Record User) -> do
       case validatePassword password $ view fPassword user of
-        True -> pure . Authorized . UserJson . rcast $ (user :: Record User)
+        True -> pure . Authorized . UserJson . rcast $ user
         False -> pure BadPassword
