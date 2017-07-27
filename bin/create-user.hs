@@ -32,7 +32,7 @@ main = do
     case headMay users of
       Just (_ :: Record User) -> putStrLn "User already exists"
       Nothing -> do
-        hashedPassword <- hashPassword 4 optsPassword
+        hashedPassword <- hashPassword 8 optsPassword
         void . runInsertMany conn userTable . singleton
           . (constant :: Record User -> Record UserCols)
           $ optsUsername :*: hashedPassword :*: RNil
