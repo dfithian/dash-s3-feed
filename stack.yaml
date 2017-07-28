@@ -1,6 +1,7 @@
 resolver: lts-8.23
 packages:
 - dash-s3-feed
+- bin
 extra-deps:
   - composite-aeson-0.4.2.0
   - composite-base-0.4.2.0
