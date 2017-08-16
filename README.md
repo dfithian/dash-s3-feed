@@ -10,6 +10,14 @@ A proxy server over S3 that serves [Dash](http://kapeli.com/) docsets.
 * Build: `stack install`
 * Run: `cd dash-s3-feed && ~/.local/bin/dash-s3-feed`
 
+## Creating Users
+
+There's a `create-user` binary. For help, run `create-user --help`. An example invocation:
+
+```bash
+create-user --username username --password password \
+  --conn-string "host=localhost port=5432 dbname=postgres"
+```
 ## Authentication
 
 This uses basic auth. Use an SSL certificate (not implemented yet).
