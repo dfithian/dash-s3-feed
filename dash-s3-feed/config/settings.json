@@ -1,9 +1,9 @@
 {
-    "database": "host=localhost port=5432 user=root dbname=postgres",
+    "database": "FIXME",
     "pool-size": 10,
     "port": 10443,
     "callback-host": "localhost",
     "callback-scheme": "http",
-    "certificate-key-path": "config/dash-s3-feed-key.pem",
-    "certificate-path": "config/dash-s3-feed-certificate.pem"
+    "certificate-key-path": "FIXME",
+    "certificate-path": "FIXME"
 }
