@@ -12,7 +12,19 @@ A proxy server over S3 that serves [Dash](http://kapeli.com/) docsets.
 
 ## Authentication
 
-This uses basic auth. Use an SSL certificate (not implemented yet).
+This uses basic authentication. Generate an SSL certificate. Some sample steps:
+
+```bash
+# Create the key
+openssl genrsa -out dash-s3-feed-key.pem 2048
+# Create a CSR and fill out the appropriate values
+openssl req -new -sha256 -key dash-s3-feed-key.pem -out dash-s3-feed-csr.csr
+# Generate the certificate
+openssl req -x509 -sha256 -days 365 -key dash-s3-feed-key.pem -in dash-s3-feed-csr.csr -out dash-s3-feed-certificate.pem
+# Move key and certificate to the appropriate directory
+mv dash-s3-feed-key.pem dash-s3-feed/config/dash-s3-feed-key.pem
+mv dash-s3-feed-certificate.pem dash-s3-feed/config/dash-s3-feed-certificate.pem
+```
 
 ## Getting files
 
