@@ -6,7 +6,7 @@ A proxy server over S3 that serves [Dash](http://kapeli.com/) docsets.
 
 * Postgres: `brew install postgres`
 * AWS Credentials in `~/.aws/credentials`
-* Migrations: `psql -d postgres -f sql/create-tables.sql`
+* Migrations: `psql -d postgres -f dash-s3-feed/sql/create-tables.sql`
 * Build: `stack install`
 * Run: `cd dash-s3-feed && ~/.local/bin/dash-s3-feed`
 
@@ -33,7 +33,7 @@ For both manifests and docsets, `GET` to `/file/<bucket>/<path>`.
 ### Example
 
 ```bash
-curl http://user:pass@localhost:8080/file/my-bucket/my%2furlescaped%2fpath%2fmanifest.xml
+curl https://user:pass@localhost:10443/file/my-bucket/my%2furlescaped%2fpath%2fmanifest.xml
 ```
 
 ## Pushing docsets
@@ -44,7 +44,7 @@ Multipart upload with `version` (text) and `file` (.tar.gz file) inputs. `POST` 
 ### Example
 
 ```bash
-curl http://user:pass@localhost:8080/file/my-bucket/my%2furlescaped%2fpath%2fmanifest.xml \
+curl https://user:pass@localhost:10443/file/my-bucket/my%2furlescaped%2fpath%2fmanifest.xml \
   -F "version=1.0" -F "file=@docset.tar.gz"
 ```
 
