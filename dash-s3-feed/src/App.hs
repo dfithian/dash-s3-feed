@@ -2,12 +2,13 @@ module App where
 
 import ClassyPrelude hiding (Handler)
 import Control.Monad.Except (runExceptT, throwError)
-import Control.Monad.Logger (askLoggerIO, logInfo, runLoggingT)
+import Control.Monad.Logger (askLoggerIO, runLoggingT)
 import Data.Aeson (eitherDecodeStrict')
 import Data.Pool (createPool, destroyAllResources)
 import Database.PostgreSQL.Simple (close, connectPostgreSQL)
 import Network.AWS (Credentials(Discover), newEnv)
-import Network.Wai.Handler.Warp (run)
+import Network.Wai.Handler.Warp (defaultSettings, setPort)
+import Network.Wai.Handler.WarpTLS (runTLS, tlsSettings)
 import Servant ((:<|>)((:<|>)))
 import Servant.Server ((:~>)(NT), Handler, enter, serveWithContext)
 
@@ -15,7 +16,9 @@ import Api (api)
 import File (getFile, postFile)
 import Foundation (App(App), MonadStack, _appConnectionPool, _appSettings)
 import Logging (LogFunction, withLogger)
-import Settings (Settings(Settings), _settingsDatabase, _settingsPoolSize, _settingsPort)
+import Settings
+  ( Settings(Settings), _settingsCertificateKeyPath, _settingsCertificatePath
+  , _settingsDatabase, _settingsPoolSize, _settingsPort )
 import User (basicAuthContext)
 
 stackToHandler' :: r -> LogFunction -> MonadStack r a -> Handler a
@@ -40,8 +43,8 @@ startApp = do
   withLogger $
     flip finally (liftIO $ destroyAllResources _appConnectionPool) $ do
       logFunc <- askLoggerIO
-      let port = _settingsPort _appSettings
-      $logInfo $ "Starting server on " <> tshow port
-      liftIO . run port . serveWithContext api (basicAuthContext app)
+      let tls = tlsSettings (_settingsCertificatePath _appSettings) (_settingsCertificateKeyPath _appSettings)
+          warp = setPort (_settingsPort _appSettings) defaultSettings
+      liftIO . runTLS tls warp . serveWithContext api (basicAuthContext app)
         . enter (stackToHandler app logFunc)
         $ \ _ -> getFile :<|> postFile

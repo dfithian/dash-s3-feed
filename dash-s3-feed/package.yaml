@@ -79,6 +79,7 @@ dependencies:
   - vinyl
   - wai
   - warp
+  - warp-tls
   - xml-conduit
   - xml-conduit-writer
 
